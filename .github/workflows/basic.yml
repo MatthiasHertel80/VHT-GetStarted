@@ -40,7 +40,7 @@ jobs:
       - name: Build
         run: |
           echo "Building get started example ..."
-          cbuild get_started.csolution.yml --packs --update-rte --context .debug+avh --toolchain ARMCLANG
+          cbuild get_started.csolution.yml --packs --update-rte --context .debug+avh 
 
       - name: Execute
         run: |
