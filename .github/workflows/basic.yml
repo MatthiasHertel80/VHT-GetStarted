@@ -45,7 +45,7 @@ jobs:
       - name: Execute
         run: |
           echo "Running get started example ..."
-          FVP_MPS2_Cortex-M3 --simlimit 10 -f fvp-config.txt -a out/Project/ARMCM3/Debug/Project.axf | tee model.log
+          FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/ARMCM3/Debug/Project.axf | tee model.log
           echo "Checking output..."
           grep "Hello World" model.log | wc -l
           test "$(grep "Hello World" model.log | wc -l)" -eq 10
