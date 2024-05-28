@@ -17,7 +17,7 @@ permissions:
   security-events: write
 
 jobs:
-  build-and-run:
+  ci_test:
     
     runs-on: ubuntu-latest   
     permissions:
@@ -77,31 +77,30 @@ jobs:
             report_paths: basic/basic-*.xunit
         if: always()
     
+  badge:
+    if: always() && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: ci_test
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          ref: badges
     
-    badge:
-      if: always() && github.event_name == 'push'
-      runs-on: ubuntu-latest
-      needs: ci_test
-      steps:
-          - name: Check out repository code
-            uses: actions/checkout@v3
-            with:
-              ref: badges
-    
-          - name: Update badge
-            run: |
-              mkdir -p .github/badges
-              cd .github/badges
-              rm -f basic.yml.*.svg
-              if [[ "${{ needs.ci_test.outputs.avhresult }}" == "success" ]]; then
-                cp vht-completed.svg basic.yml.vht.svg
-              else
-                cp vht-failed.svg basic.yml.vht.svg
-              fi
-              curl -o basic.yml.unittest.svg https://img.shields.io/badge/${{ needs.ci_test.outputs.testbadge }}
-              git config user.name github-actions
-              git config user.email github-actions@github.com
-              git add basic.yml.*.svg
-              if git commit -m "Update badges for workflow basic.yml"; then
-                git push
-              fi
+      - name: Update badge
+        run: |
+            mkdir -p .github/badges
+            cd .github/badges
+            rm -f basic.yml.*.svg
+            if [[ "${{ needs.ci_test.outputs.avhresult }}" == "success" ]]; then
+              cp vht-completed.svg basic.yml.vht.svg
+            else
+              cp vht-failed.svg basic.yml.vht.svg
+            fi
+            curl -o basic.yml.unittest.svg https://img.shields.io/badge/${{ needs.ci_test.outputs.testbadge }}
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add basic.yml.*.svg
+            if git commit -m "Update badges for workflow basic.yml"; then
+              git push
+            fi
