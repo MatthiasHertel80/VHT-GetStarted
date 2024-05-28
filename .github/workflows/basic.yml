@@ -13,7 +13,7 @@ permissions:
   security-events: write
 
 jobs:
-  build-and-run:
+  ci_run:
     
     runs-on: ubuntu-latest    
 
