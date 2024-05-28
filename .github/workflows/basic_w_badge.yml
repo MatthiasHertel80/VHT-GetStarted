@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: '30 22 * * 0'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions: 
   actions: read
   security-events: write
@@ -15,7 +19,13 @@ permissions:
 jobs:
   build-and-run:
     
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest   
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      avhresult: ${{ steps.avh.conclusion }}
+      testbadge: ${{ steps.avh.outputs.badge }} 
 
     steps:
       - name: Checkout
