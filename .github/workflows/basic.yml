@@ -1,4 +1,4 @@
-name: Test get_started example
+name: Test get_started Unit Tests  
 on:
   workflow_dispatch:
   pull_request:
