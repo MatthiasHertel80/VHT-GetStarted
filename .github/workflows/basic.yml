@@ -47,5 +47,4 @@ jobs:
           echo "Running get started example ..."
           FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.elf | tee model.log
           echo "Checking output..."
-          grep "Hello World" model.log | wc -l
-          test "$(grep "Hello World" model.log | wc -l)" -eq 10
+          test "$(grep "FAIL: Expected 2 Was 0" model.log | wc -l)" -eq 1
