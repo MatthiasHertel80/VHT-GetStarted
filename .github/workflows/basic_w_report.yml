@@ -47,3 +47,7 @@ jobs:
           echo "Running get started example ..."
           FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.elf | tee model.log
 
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 15
