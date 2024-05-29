@@ -57,6 +57,7 @@ jobs:
         run: |
           echo "Converting log to junit..."
           python Project/report.py Project.avh.log
+          cat Project.avh.xml
       
       # Upload the junit report to the check run of the workflow
       - name: Test Report
