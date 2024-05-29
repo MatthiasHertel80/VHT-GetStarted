@@ -30,14 +30,13 @@ class UnityReport:
                 logging.debug(f"Parsed line: {line.strip()}, Result: {result.name}, {result.file}, {result.line}, {result.status}")
 
     def to_xunit(self):
-        testsuites = Element('testsuites', {'time': '0'})
-        testsuite = SubElement(testsuites, 'testsuite', {'time': '0'})
+        testsuites = Element('testsuites')
+        testsuite = SubElement(testsuites, 'testsuite', {'name': 'Unity'})
         for result in self.results:
             testcase = SubElement(testsuite, 'testcase', {
                 'name': result.name,
                 'file': str(result.file),
-                'line': result.line,
-                'time': '0',
+                'line': result.line
             })
             if result.status == 'FAIL':
                 failure = SubElement(testcase, 'failure')
