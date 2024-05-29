@@ -55,7 +55,7 @@ jobs:
           python Project/report.py Project.avh.log
       
       - name: Test Report
-        uses: phoenix-actions/test-reporting
+        uses: phoenix-actions/test-reporting@v15
         if: success() || failure()    # run this step even if previous step failed
         with:
             name: Project Unit Test Report from AVH run           # Name of the check run which will be created
