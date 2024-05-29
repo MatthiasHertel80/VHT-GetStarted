@@ -30,18 +30,19 @@ class UnityReport:
                 logging.debug(f"Parsed line: {line.strip()}, Result: {result.name}, {result.file}, {result.line}, {result.status}")
 
     def to_xunit(self):
-        testsuite = Element('testsuite')
+        testsuites = Element('testsuites', {'time': '0'})
+        testsuite = SubElement(testsuites, 'testsuite', {'time': '0'})
         for result in self.results:
             testcase = SubElement(testsuite, 'testcase', {
                 'name': result.name,
                 'file': str(result.file),
                 'line': result.line,
+                'time': '0',
             })
             if result.status == 'FAIL':
                 failure = SubElement(testcase, 'failure')
             logging.debug(f"Converted Result to xunit: {result.name}, {result.file}, {result.line}, {result.status}")
-        return minidom.parseString(tostring(testsuite)).toprettyxml(indent="   ")
-
+        return minidom.parseString(tostring(testsuites)).toprettyxml(indent="   ")
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
