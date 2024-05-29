@@ -45,9 +45,17 @@ jobs:
       - name: Execute
         run: |
           echo "Running get started example ..."
-          FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.elf | tee model.log
+          FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.elf | tee Project.avh.log
 
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 15
+      - name: Convert log to junit
+        run: |
+          echo "Converting log to junit..."
+          python Project/report.py Project.avh.log
+      
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
+        with:
+            name: Project Unit Test Report from AVH run           # Name of the check run which will be created
+            path: Project.avh.xunit     # Path to test results
+            reporter: jest-junit        # Format of test results
