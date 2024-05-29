@@ -2,9 +2,7 @@ import logging
 import re
 import sys
 from pathlib import Path
-from io import StringIO
-from xml.etree.ElementTree import Element, SubElement, tostring
-from xml.dom import minidom
+from junit_reporter import TestCase, TestSuite, JUnitReporter
 
 class UnityReport:
     class Result:
@@ -29,19 +27,15 @@ class UnityReport:
                 self.results.append(result)
                 logging.debug(f"Parsed line: {line.strip()}, Result: {result.name}, {result.file}, {result.line}, {result.status}")
 
+
     def to_xunit(self):
-        testsuites = Element('testsuites')
-        testsuite = SubElement(testsuites, 'testsuite', {'name': 'Unity'})
+        test_cases = []
         for result in self.results:
-            testcase = SubElement(testsuite, 'testcase', {
-                'name': result.name,
-                'file': str(result.file),
-                'line': result.line
-            })
-            if result.status == 'FAIL':
-                failure = SubElement(testcase, 'failure')
+            test_case = TestCase(result.name, classname=str(result.file), stdout='Test passed', stderr='Test failed' if result.status == 'FAIL' else '')
+            test_cases.append(test_case)
             logging.debug(f"Converted Result to xunit: {result.name}, {result.file}, {result.line}, {result.status}")
-        return minidom.parseString(tostring(testsuites)).toprettyxml(indent="   ")
+        test_suite = TestSuite("Unity", test_cases)
+        return JUnitReporter.report_to_string([test_suite])
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
