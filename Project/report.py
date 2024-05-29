@@ -6,12 +6,14 @@ from junit_reporter import TestCase, TestSuite, JUnitReporter
 
 class UnityReport:
     class Result:
-        def __init__(self, name, file, line, status):
+        def __init__(self, name, file, line, status, raw_line):
             self.name = name
             self.file = file
             self.line = line
             self.status = status
-            logging.debug(f"Created Result: {self.name}, {self.file}, {self.line}, {self.status}")
+            self.raw_line = raw_line
+            logging.debug(f"Created Result: {self.name}, {self.file}, {self.line}, {self.status}, {self.raw_line}")
+
 
     def __init__(self, stream):
         self._stream = stream
@@ -23,7 +25,7 @@ class UnityReport:
             m = re.match('(.*):(\d+):(\w+):(PASS|FAIL)(:(.*))?', line)
             if m:
                 file = Path(m.group(1))
-                result = self.Result(m.group(3), file, m.group(2), m.group(4))
+                result = self.Result(m.group(3), file, m.group(2), m.group(4), line)
                 self.results.append(result)
                 logging.debug(f"Parsed line: {line.strip()}, Result: {result.name}, {result.file}, {result.line}, {result.status}")
 
@@ -33,7 +35,7 @@ class UnityReport:
         for result in self.results:
             test_case = TestCase(result.name, classname=str(result.file), stdout='Test passed', stderr='Test failed' if result.status == 'FAIL' else '')
             if result.status == 'FAIL':
-              test_case.add_failure(test_case.stderr, 'Test failed')
+              test_case.add_failure(result.raw_line) 
             test_cases.append(test_case)
             logging.debug(f"Converted Result to xunit: {result.name}, {result.file}, {result.line}, {result.status}")
         test_suite = TestSuite("Unity", test_cases)
