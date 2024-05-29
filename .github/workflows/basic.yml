@@ -1,4 +1,4 @@
-name: get_started Unit Tests  
+name: Project Unit Tests - Simple Workflow Template
 on:
   workflow_dispatch:
   pull_request:

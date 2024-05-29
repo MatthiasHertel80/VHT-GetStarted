@@ -1,4 +1,4 @@
-name: get_started Unit Tests with Report
+name: Project Unit Tests - Run with Report
 on:
   workflow_dispatch:
   pull_request:
@@ -15,30 +15,34 @@ permissions:
 
 jobs:
   ci_run:
-    
     runs-on: ubuntu-latest    
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Install Python used by the report utility
       - name: Setup Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'    
+          python-version: '3.10'
+      - run: 
+          pip install junit_reporter
 
+      # Install system packages required by FVP VSI extensions
       - name: Install system packages
         run: |
           sudo add-apt-repository ppa:deadsnakes/ppa
           sudo apt-get install libpython3.9 libtinfo5
-          pip install junit_reporter
-
+         
+      # Install vcpkg tools from the vcpkg-configuration.json and activate an Arm tools license
       - name: Activate vcpkg
         uses: ARM-software/cmsis-actions/vcpkg@v1
 
       - name: Activate Arm tool license
         uses: ARM-software/cmsis-actions/armlm@v1
   
+      # Build the project, run the test and convert the log to junit format
       - name: Build
         run: |
           echo "Building get started example ..."
@@ -54,6 +58,7 @@ jobs:
           echo "Converting log to junit..."
           python Project/report.py Project.avh.log
       
+      # Upload the junit report to the check run of the workflow
       - name: Test Report
         uses: phoenix-actions/test-reporting@v15
         if: success() || failure()    # run this step even if previous step failed
