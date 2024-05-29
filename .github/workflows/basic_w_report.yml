@@ -57,5 +57,5 @@ jobs:
         if: success() || failure()    # run this step even if previous step failed
         with:
             name: Project Unit Test Report from AVH run           # Name of the check run which will be created
-            path: Project.avh.xunit     # Path to test results
-            reporter: java-junit        # Format of test results
+            path: Project.avh.xml     # Path to test results
+            reporter: jest-junit        # Format of test results

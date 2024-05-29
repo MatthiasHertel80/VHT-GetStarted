@@ -54,10 +54,10 @@ def main():
         report = UnityReport(f)
         report.parse()
         xunit = report.to_xunit()
-        xunit_file = Path(report_file).with_suffix('.xunit')
+        xunit_file = Path(report_file).with_suffix('.xml')
         with open(xunit_file, 'w') as f:
             f.write(xunit)
-        print(f"Xunit report written to {xunit_file}")
+        print(f"junit XML report written to {xunit_file}")
 
 if __name__ == '__main__':
     main()
