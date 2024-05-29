@@ -1,4 +1,4 @@
-name: Test get_started Unit Tests  
+name: get_started Unit Tests with Report
 on:
   workflow_dispatch:
   pull_request:
@@ -55,7 +55,7 @@ jobs:
           python Project/report.py Project.avh.log
       
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: phoenix-actions/test-reporting@v8
         if: success() || failure()    # run this step even if previous step failed
         with:
             name: Project Unit Test Report from AVH run           # Name of the check run which will be created

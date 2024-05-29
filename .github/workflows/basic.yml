@@ -1,4 +1,4 @@
-name: Test get_started Unit Tests  
+name: get_started Unit Tests  
 on:
   workflow_dispatch:
   pull_request:
@@ -45,10 +45,7 @@ jobs:
       - name: Execute
         run: |
           echo "Running get started example ..."
-          FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.elf | tee model.log
+          FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.elf | tee Project.avh.log
           echo "Checking output..."
-          test "$(grep "FAIL: " model.log | wc -l)" -eq 0
+          test "$(grep "FAIL: " Project.avh.log | wc -l)" -eq 0
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 15
