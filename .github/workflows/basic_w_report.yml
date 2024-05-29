@@ -9,8 +9,9 @@ on:
     - cron: '30 22 * * 0'
 
 permissions: 
+  contents: read
   actions: read
-  security-events: write
+  checks: write
 
 jobs:
   ci_run:
