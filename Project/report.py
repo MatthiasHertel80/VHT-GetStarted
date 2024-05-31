@@ -6,11 +6,12 @@ from junit_reporter import TestCase, TestSuite, JUnitReporter
 
 class UnityReport:
     class Result:
-        def __init__(self, name, file, line, status):
+        def __init__(self, name, file, line, status, message):
             self.name = name
             self.file = file
             self.line = line
             self.status = status
+            self.message= message
             logging.debug(f"Created Result: {self.name}, {self.file}, {self.line}, {self.status}")
 
 
@@ -24,7 +25,9 @@ class UnityReport:
             m = re.match('(.*):(\d+):(\w+):(PASS|FAIL)(:(.*))?', line)
             if m:
                 file = Path(m.group(1))
-                result = self.Result(m.group(3), file, m.group(2), m.group(4))
+                if m.group(4) == 'FAIL':
+                   fail_message = f"Test failed in {file} at line {m.group(2)}: {m.group(6)}"
+                result = self.Result(m.group(3), file, m.group(2), m.group(4), fail_message if m.group(4) == 'FAIL' else None)
                 self.results.append(result)
                 logging.debug(f"Parsed line: {line.strip()}, Result: {result.name}, {result.file}, {result.line}, {result.status}")
 
@@ -34,7 +37,7 @@ class UnityReport:
         for result in self.results:
             test_case = TestCase(result.name, classname=str(result.file), stdout='Test passed', stderr='Test failed' if result.status == 'FAIL' else '')
             if result.status == 'FAIL':
-              test_case.add_failure(output="Test failed")
+              test_case.add_failure(output=result.message)
             test_cases.append(test_case)
             logging.debug(f"Converted Result to xunit: {result.name}, {result.file}, {result.line}, {result.status}")
         test_suite = TestSuite("Unity", test_cases)
