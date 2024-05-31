@@ -34,7 +34,7 @@ class UnityReport:
         for result in self.results:
             test_case = TestCase(result.name, classname=str(result.file), stdout='Test passed', stderr='Test failed' if result.status == 'FAIL' else '')
             if result.status == 'FAIL':
-              test_case.add_failure("Test failed") 
+              test_case.add_failure(output="Test failed")
             test_cases.append(test_case)
             logging.debug(f"Converted Result to xunit: {result.name}, {result.file}, {result.line}, {result.status}")
         test_suite = TestSuite("Unity", test_cases)
