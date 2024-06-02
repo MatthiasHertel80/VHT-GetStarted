@@ -15,21 +15,21 @@ The tool installation is managed with [vcpkg](https://www.keil.arm.com/artifacts
 
 Directory                     | Content
 :-----------------------------|----------
-[.github/workflow](./tree/main/.github/workflows)  | Workflow YML files that gets you started with GitHub Actions for CMSIS projects.
-[Project](./tree/main/Project)                     | A simple unit test application in [*csolution project format*](https://github.com/Open-CMSIS-Pack/cmsis-toolbox).
+[.github/workflows](.github/workflows) | Workflow YML files that gets you started with GitHub Actions for CMSIS projects.
+[Project](Project)                     | A simple unit test application in [*csolution project format*](https://github.com/Open-CMSIS-Pack/cmsis-toolbox).
 
 ## Usage
 
-The [Project](./tree/main/Project) tests a single function (*my_sum*) using the [Unity test framework](https://github.com/MDK-Packs/Unity) that is available as [CMSIS software pack](https://www.keil.arm.com/packs/unity-arm-packs). The initial configuration contains a test case error that exemplifies the Unity test reporting.
+The [Project](Project) tests a single function (*my_sum*) using the [Unity test framework](https://github.com/MDK-Packs/Unity) that is available as [CMSIS software pack](https://www.keil.arm.com/packs/unity-arm-packs). The initial configuration contains a test case error that exemplifies the Unity test reporting.
 
 ### GitHub
 
 With GitHub Actions two workflows are available:
 
-- [basic.yml](actions/workflows/basic.yml) compiles and runs the application.
-- [basic_w_report.yml](actions/workflows/basic_w_report.yml) compiles and runs the application; then generates a test report using [phoenix-actions/test-reporting](https://github.com/phoenix-actions/test-reporting).
+- [basic.yml](.github/workflows/basic.yml) compiles and runs the application.
+- [basic_w_report.yml](.github/workflows/basic_w_report.yml) compiles and runs the application; then generates a test report using [phoenix-actions/test-reporting](https://github.com/phoenix-actions/test-reporting).
 
-Use in the GitHub web interface the [Actions](./actions) view to execute the *CI test run* and get *Test results*.
+Use in the GitHub web interface the *Actions* view to execute the *CI test run* and get *Test results*.
 
 ### Desktop
 
@@ -49,13 +49,14 @@ In VS Code use:
 >
 > When you open the project for the first time, the *Arm Tools Environment* managed with [vcpkg](https://www.keil.arm.com/artifacts/) gets installed which may take some minutes.
 
-**Debug:**
-
-...
-
 **Run:**
 
-...
+In VS Code open the *CMSIS Activity Bar* and *Run* the application.
+
+**Debug:**
+
+In VS Code open the *CMSIS Activity Bar* and *Debug* the application.
+
 
 ## Other Developer Resources
 
