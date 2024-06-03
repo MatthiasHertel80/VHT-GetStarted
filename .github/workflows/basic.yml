@@ -1,4 +1,4 @@
-name: Compile and Run Unit Tests - Simple Workflow Template
+name: Compile and Run
 on:
   workflow_dispatch:
   pull_request:
@@ -13,7 +13,7 @@ permissions:
   security-events: write
 
 jobs:
-  CI_execute: 
+   CI_test_run: 
     runs-on: ubuntu-latest    
 
     steps:
