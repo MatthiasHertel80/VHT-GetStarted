@@ -2,7 +2,7 @@
 solution:
   created-for: CMSIS-Toolbox@2.4.0
   cdefault:
-  compiler: GCC
+  compiler: AC6
 
   packs:
     - pack: ARM::CMSIS
