@@ -13,8 +13,7 @@ permissions:
   security-events: write
 
 jobs:
-  ci_run:
-    
+  ci_execute: 
     runs-on: ubuntu-latest    
 
     steps:
