@@ -1,4 +1,4 @@
-name: Compile and Run Unit Tests - Run with Report
+name:  Compile, Run, and Report
 on:
   workflow_dispatch: 
   pull_request:
@@ -14,7 +14,7 @@ permissions:
   checks: write
 
 jobs:
-  ci_execute:
+   CI_test_run:
     runs-on: ubuntu-latest    
 
     steps:
