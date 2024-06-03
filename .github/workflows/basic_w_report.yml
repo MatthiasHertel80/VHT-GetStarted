@@ -14,7 +14,7 @@ permissions:
   checks: write
 
 jobs:
-  ci_execute:
+  CI_execute:
     runs-on: ubuntu-latest    
 
     steps:
