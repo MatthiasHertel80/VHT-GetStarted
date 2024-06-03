@@ -64,6 +64,6 @@ jobs:
         uses: phoenix-actions/test-reporting@v15
         if: success() || failure()    # run this step even if previous step failed
         with:
-            name: Project Unit Test Report from AVH run           # Name of the check run which will be created
+            name: Test Report         # Name of the check run which will be created
             path: Project.avh.xml     # Path to test results
-            reporter: jest-junit        # Format of test results
+            reporter: jest-junit      # Format of test results
