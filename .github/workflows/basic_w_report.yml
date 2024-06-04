@@ -51,7 +51,7 @@ jobs:
       - name: Execute
         run: |
           echo "Running get started example ..."
-          FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.elf | tee Project.avh.log
+          FVP_MPS2_Cortex-M3 --simlimit 10 -f Project/fvp_config.txt -a out/Project/avh/debug/Project.axf | tee Project.avh.log
 
       - name: Convert log to junit
         run: |
