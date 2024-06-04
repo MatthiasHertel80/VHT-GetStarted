@@ -1,4 +1,4 @@
-name:  Compile, Run, and Report
+name:  Compile - Run - Report
 on:
   workflow_dispatch: 
   pull_request:
