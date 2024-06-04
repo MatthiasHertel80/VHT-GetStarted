@@ -70,7 +70,7 @@ static void app_main (void *argument) {
   const int result = UNITY_END();
   printf("---[ UNITY END ]---\n");
 
-  exit(0);
+  osThreadExit();
 }
 
 /*---------------------------------------------------------------------------
