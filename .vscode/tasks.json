@@ -8,5 +8,14 @@
 			"problemMatcher": [],
 			"label": "virtual-hardware.run: Run Program"
 		}
+		{
+                        "label": "Start µVision Debugger",
+                        "type": "process",
+                        "command": "C:\\Keil_v5\\UV4\\UV4.exe",
+                        "args": [
+                           "${command:cmsis-csolution.getSolutionPath}"
+                                ],
+                        "problemMatcher": []
+                }
 	]
 }
